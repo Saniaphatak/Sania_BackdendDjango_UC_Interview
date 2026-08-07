@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pokémon Search</title>
+</head>
+<body>
+
+<h1>Pokémon Search</h1>
+
+<form method="GET">
+        <input type="text" name="type" placeholder="Enter Pokémon type">
+        <button type="submit">Search</button>
+    </form>
+
+{% if pokemon_list %}
+    <h2>Results</h2>
+
+    {% for pokemon in pokemon_list %}
+            <div>
+                <h3>{{ pokemon.name }}</h3>
+                <img src="{{ pokemon.image }}" alt="{{ pokemon.name }}">
+                <p>Type: {{ pokemon.type }}</p></div><hr>
+        {% endfor %}
+    {% endif %}
+
+{% if error %}
+    <p style="color:red;">{{ error }}</p>
+{% endif %}
+
+</body>
+</html>
