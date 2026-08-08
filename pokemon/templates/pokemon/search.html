@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
+    <style>
+    body{
+        text-align: center;
+    }
+</style>
 <head>
-    <title>Pokémon Search</title>
+    <title>Pokemon Search</title>
 </head>
 <body>
 
-<h1>Pokémon Search</h1>
-
+<h1>Pokemon Search</h1>
 <form method="GET">
-        <input type="text" name="type" placeholder="Enter Pokémon type">
+        <input type="text" name="type" placeholder="Enter Pokemon type">
         <button type="submit">Search</button>
     </form>
 
@@ -17,7 +21,8 @@
 
     {% for pokemon in pokemon_list %}
             <div>
-                <h3>{{ pokemon.name }}</h3>
+                <a href="{% url 'pokemon_detail' pokemon.name %}">
+                 {{ pokemon.name }}</a>
                 <img src="{{ pokemon.image }}" alt="{{ pokemon.name }}">
                 <p>Type: {{ pokemon.type }}</p></div><hr>
         {% endfor %}

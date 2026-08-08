@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+     <style>
+    body{
+        text-align: center;
+    }
+</style>
+<head>
+    <title>{{ pokemon.name }}</title>
+</head>
+<body>
+<h1>{{ pokemon.name|title }}</h1>
+<img src="{{ pokemon.image }}" width="250">
+<p><strong>ID:</strong> {{ pokemon.id }}</p>
+<p><strong>Height:</strong>{{ pokemon.height }}</p>
+<p><strong>Weight:</strong> {{ pokemon.weight }}</p>
+<p><strong>Base Experience:</strong> {{ pokemon.base_experience }}</p>
+<p><strong>Types:</strong></p>
+<ul>
+{% for type in pokemon.types %}
+    <li>{{ type }}</li>
+{% endfor %}</ul>
+
+<p><strong>Abilities:</strong></p>
+    <ul>
+{% for ability in pokemon.abilities %}
+    <li>{{ ability }}</li>
+{% endfor %}                           </ul>
+
+<p><strong>First 5 Moves:</strong></p>
+<ul>
+{% for move in pokemon.moves %}
+    <li>{{ move }}</li>
+{% endfor %}
+</ul>
+<a href="/">← Back</a>
+
+</body>
+</html>

@@ -24,7 +24,22 @@ def search_pokemon(request):
         else : error = "Invalid Input. Pleease enter a valid pokemon type."
     return render(request, "pokemon/search.html", {
         "pokemon_list": pokemon_list,
-        "error" : error
+        "error" : error})
 
+def pokemon_detail(request, name):
 
-    })
+    url = f"https://pokeapi.co/api/v2/pokemon/{name}"
+    response = requests.get(url)
+    data = response.json()
+    pokemon = {
+        "name": data["name"], "id": data["id"],
+        "image": data["sprites"]["other"]["official-artwork"]["front_default"],
+        "height": data["height"],
+        "weight": data["weight"],
+        "base_experience": data["base_experience"],
+        "types": [t["type"]["name"] for t in data["types"]],
+        "abilities": [a["ability"]["name"] for a in data["abilities"]],
+        "moves": [m["move"]["name"] for m in data["moves"][:5]],
+    }
+
+    return render(request, "pokemon/detail.html", {"pokemon": pokemon})
