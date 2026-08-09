@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+     <style>
+    body{
+        text-align: center;
+    }
+</style>
+<head>
+    <title>My Team</title>
+</head>
+<body>
+<h1>My Pokémon Team</h1>
+{% for pokemon in team %}
+<h2>{{ pokemon.name|title }}</h2>
+<img src="{{ pokemon.image }}" width="200">
+<p>Type: {{ pokemon.pokemon_type }}</p>
+<p>Date Added: {{ pokemon.date_added }}</p><hr>
+{% endfor %}
+</body></html>

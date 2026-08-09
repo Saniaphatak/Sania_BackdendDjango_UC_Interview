@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 import requests
+from .models import Pokemon
 
 def search_pokemon(request):
     pokemon_list = []
@@ -43,3 +44,37 @@ def pokemon_detail(request, name):
     }
 
     return render(request, "pokemon/detail.html", {"pokemon": pokemon})
+
+def add_to_team(request, name):
+
+    response = requests.get(f"https://pokeapi.co/api/v2/pokemon/{name}")
+    data = response.json()
+    Pokemon.objects.create(
+        name=data["name"],
+        image=data["sprites"]["other"]["official-artwork"]["front_default"],
+        pokemon_type=data["types"][0]["type"]["name"]
+    )
+
+    return redirect("my_team")
+
+def my_team(request):
+    team = Pokemon.objects.all()
+    return render(request, "pokemon/team.html", {"team": team})
+    team = Pokemon.objects.all()
+    total = team.count()
+    types = {}
+    for pokemon in team:
+     if pokemon.pokemon_type in types:
+        types[pokemon.pokemon_type] += 1
+     else:
+        types[pokemon.pokemon_type] = 1
+    if Pokemon.objects.count() >= 6:
+     return redirect("my_team")
+
+    return render(request,
+              "pokemon/team.html",
+              {   "team": team,
+                  "total": total,
+                  "types": types})
+
+
